@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">University Everyday</string>
+    <string name="university_name">Nama Universitas</string>
+    <string name="detail">Detail</string>
+    <string name="my_profile">My Profile</string>
+    <string name="univ_name">Nama Universitas</string>
+    <string name="share">Share</string>
+</resources>
