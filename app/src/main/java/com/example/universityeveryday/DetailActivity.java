@@ -2,7 +2,9 @@ package com.example.universityeveryday;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,7 +13,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String ITEM_EXTRA = "item_extra";
 
     @Override
@@ -31,8 +33,7 @@ public class DetailActivity extends AppCompatActivity {
                     .into(imageView);
             nameDetail.setText(university.getName());
             detailDetail.setText(university.getDetail());
-            button.setOnClickListener(view -> Toast.makeText(view.getContext(), "Share " +
-                     university.getName(), Toast.LENGTH_SHORT).show());
+            button.setOnClickListener(this);
         }
         if (getSupportActionBar() != null){
             getSupportActionBar().setTitle("Detail University");
@@ -41,9 +42,25 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        University university = getIntent().getParcelableExtra(ITEM_EXTRA);
+        if (view.getId() == R.id.btn_set_share){
+            Intent shareMedsos = new Intent();
+            shareMedsos.setAction(Intent.ACTION_SEND);
+            shareMedsos.putExtra(Intent.EXTRA_TEXT,"Aku mau login ke "+ university.getName());
+            shareMedsos.setType("text/plain");
+
+            Intent shareIntent = Intent.createChooser(shareMedsos, null);
+            startActivity(shareIntent);
+        }
     }
 }
